@@ -67,3 +67,5 @@ These are patterns that a spec is expected to follow by default to be included i
  
    - It is a good practice to specify units in description for properties like size
  - **Add a link to MSDN Rest Api Docs whenever possible.**
+ - **Define constraints using [JSON schema constraints](http://json-schema.org/latest/json-schema-validation.html)**
+   - Using constraints (such as minLength, maxItems, pattern, etc.) is important for the experience for consumers of your generated client, even if you have good server-side validation. By including these on properties or parameters, your generated models will add the constraint to the validation of the model. In the generated methods, this validation is executed before the request is sent (for some languages, an exception will be thrown when this fails - eg. [ValidationException](https://github.com/Azure/azure-sdk-for-net/blob/AutoRest/src/ClientRuntime/Microsoft.Rest.ClientRuntime/ValidationException.cs) in C#). Users get better information about what property is invalid, without making a trip to the server. Additionally, users don't have to parse the response message to determine what property was invalid.
